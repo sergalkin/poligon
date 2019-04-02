@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\BlogPostObserver;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
