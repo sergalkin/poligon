@@ -68,7 +68,7 @@ class PostController extends BaseController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  BlogPostCreateRequest $request
+     * @param BlogPostCreateRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(BlogPostCreateRequest $request)
@@ -88,7 +88,7 @@ class PostController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -99,7 +99,7 @@ class PostController extends BaseController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -117,8 +117,8 @@ class PostController extends BaseController
     /**
      * Update the specified resource in storage.
      *
-     * @param  BlogPostUpdateRequest $request
-     * @param  int $id
+     * @param BlogPostUpdateRequest $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(BlogPostUpdateRequest $request, $id)
@@ -150,11 +150,19 @@ class PostController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        dd(__METHOD__);
+        $result = BlogPost::destroy($id);
+
+        if ($result) {
+            return redirect()
+                ->route('blog.admin.posts.index')
+                ->with(['success' => "Запись id[$id] удалена"]);
+        } else {
+            return back()->withErrors(['msg' => 'Ошибка удаления']);
+        }
     }
 }
